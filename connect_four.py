@@ -38,7 +38,7 @@ def build_board():
 
 
 def print_board(board):
-    print()
+    cls()
     for row in board:
         print(row)
 
