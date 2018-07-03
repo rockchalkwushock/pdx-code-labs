@@ -1,18 +1,14 @@
 import requests
 
-DATE = '2018-06-26'
-TOKEN = ''
-USER_ID = ''
-
 headers = {
-    "authorization": 'Bearer {TOKEN}'
+    "authorization": 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Mlc5R1MiLCJhdWQiOiIyMkQzSDQiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNTMwNjQ3NjE5LCJpYXQiOjE1MzAwNDI4MTl9.1NzMhp-GVItHFOXTBtGaDit9WHhTfFcxZy5YxGzKY_E'
 }
 
 r = requests.get(
-    'https://api.fitbit.com/1/user/{USER_ID}/activities/date/{DATE}.json', headers=headers)
+    'https://api.fitbit.com/1/user/52W9GS/activities/date/2018-06-26.json', headers=headers)
 
-print(r.url)
-print(r.status_code)
+# print(r.url)
+# print(r.status_code)
 response = r.json()
 steps = response['summary']['steps']
 fat_burn = response['summary']['heartRateZones'][1]['caloriesOut']
