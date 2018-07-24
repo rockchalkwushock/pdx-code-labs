@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fizzbuzz</title>
+  <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      label,
+      input {
+        margin-bottom: 10px;
+      }
+      div {
+        align-content: center;
+        color: green;
+        display: flex;
+        flex-direction: column;
+        font-size: 2rem;
+        justify-content: center;
+        padding: 2rem 0;
+        text-align: center;
+      }
+      p {
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+  <form id="form">
+    <label for="input">Enter a number:</label>
+    <input type="text">
+    <button type="submit">Submit</button>
+    <div id="answer"></div>
+  </form>
+  <script>
+    const form = document.getElementById('form')
+    const answer = document.getElementById('answer')
+
+    form.onsubmit = function (event) {
+      event.preventDefault()
+      const arr = fizzbuzz(event.target[0].value)
+      for (const item of arr) {
+        const p = document.createElement('p')
+        p.innerHTML = item
+        answer.appendChild(p)
+      }
+    }
+    const fizzbuzz = num => {
+      arr = []
+      for (let i = 1; i <= num; i++) {
+        if (i%15 === 0) {
+          arr.push('FizzBuzz')
+        } else if (i%3 === 0) {
+          arr.push('Fizz')
+        } else if (i%5 === 0) {
+          arr.push('Buzz')
+        } else {
+          arr.push(i)
+        }
+      }
+      return arr
+    }
+  </script>
+</body>
+</html>
