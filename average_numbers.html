@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Average Numbers</title>
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    label,
+    input {
+      margin-bottom: 10px;
+    }
+    div {
+      align-content: center;
+      color: green;
+      display: flex;
+      flex-direction: column;
+      font-size: 2rem;
+      justify-content: center;
+      padding: 2rem 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <label for="nums">Enter a number or a few numbers:</label>
+    <input id="user_input" name="nums" type="text">
+    <button type="submit">Average</button>
+    <div id="answer"></div>
+  </form>
+  <script>
+    const form = document.getElementById('form')
+    const answer = document.getElementById('answer')
+
+    form.onsubmit = function (event) {
+      event.preventDefault()
+      const nums = event.target[0].value.split(',')
+      sum = 0
+      if (nums.includes("")) {
+        answer.innerHTML = sum
+        return
+      }
+      for (const num of nums) {
+        sum += parseInt(num)
+      }
+      answer.innerHTML = sum
+    }
+  </script>
+</body>
+</html>
