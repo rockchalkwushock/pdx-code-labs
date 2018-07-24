@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rot Cipher</title>
+  <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      label,
+      input {
+        margin-bottom: 10px;
+      }
+      div {
+        align-content: center;
+        color: green;
+        display: flex;
+        flex-direction: column;
+        font-size: 2rem;
+        justify-content: center;
+        padding: 2rem 0;
+        text-align: center;
+      }
+    </style>
+</head>
+<body>
+  <form id="form">
+    <label for="word">Enter a word:</label>
+    <input name="word" type="text">
+    <label for="hash">Enter a hash value:</label>
+    <input name="hash" type="text">
+    <button type="submit">Run Cipher</button>
+    <div id="answer"></div>
+  </form>
+  <script>
+    const form = document.getElementById('form')
+    const answer = document.getElementById('answer')
+
+    form.onsubmit = function (event) {
+      event.preventDefault()
+      const word = event.target[0].value
+      const hash = parseInt(event.target[1].value)
+      answer.innerHTML = rot_cipher(word, hash)
+    }
+
+    const rot_cipher = (word, hash) => {
+      hash_word = ''
+      for (const letter of word.toLowerCase()) {
+        if (letter.charCodeAt() + hash > 122) {
+          hash_word += String.fromCharCode(Math.abs(122 - letter.charCodeAt()) + 97)
+        } else {
+          hash_word += String.fromCharCode(letter.charCodeAt() + hash)
+        }
+      }
+      return hash_word
+    }
+  </script>
+</body>
+</html>
