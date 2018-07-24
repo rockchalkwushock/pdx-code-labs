@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shrink</title>
+  <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      label,
+      input {
+        margin-bottom: 10px;
+      }
+      div {
+        align-content: center;
+        color: green;
+        display: flex;
+        flex-direction: column;
+        font-size: 2rem;
+        justify-content: center;
+        padding: 2rem 0;
+        text-align: center;
+      }
+    </style>
+</head>
+<body>
+  <form id="form">
+    <label for="input">Enter numbers (ex: 012345):</label>
+    <input name="input" type="text">
+    <button type="submit">Submit</button>
+    <div id="answer"></div>
+  </form>
+  <script>
+    const form = document.getElementById('form')
+    const answer = document.getElementById('answer')
+
+    form.onsubmit = function (event) {
+      event.preventDefault()
+      answer.innerHTML = shrink(event.target[0].value)
+    }
+
+    const shrink = string => {
+      let total = 0
+      if (string.length === 1) {
+        return string
+      }
+      for (let i = 0; i < string.length; i++) {
+        total += parseInt(string[i])
+      }
+      return shrink(total.toString())
+    }
+  </script>
+</body>
+</html>
