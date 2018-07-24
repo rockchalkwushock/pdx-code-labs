@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Simple Calculator</title>
+  <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      label,
+      input,
+      select {
+        margin-bottom: 10px;
+      }
+      div {
+        align-content: center;
+        color: green;
+        display: flex;
+        flex-direction: column;
+        font-size: 2rem;
+        justify-content: center;
+        padding: 2rem 0;
+        text-align: center;
+      }
+    </style>
+</head>
+<body>
+  <form id="form">
+    <label for="first">Enter a number:</label>
+    <input name="first" type="text">
+    <label for="second">Enter another number</label>
+    <input name="second" type="text">
+    <select name="operation" id="operation">
+      <option value="addition">+</option>
+      <option value="subtraction">-</option>
+      <option value="multiply">x</option>
+      <option value="division">/</option>
+    </select>
+    <button type="submit">Submit</button>
+    <div id="answer"></div>
+  </form>
+  <script>
+    const form = document.getElementById('form')
+    const answer = document.getElementById('answer')
+
+    form.onsubmit = function (event) {
+      event.preventDefault()
+      const val_1 = parseInt(event.target[0].value)
+      const val_2 = parseInt(event.target[1].value)
+      const operation = event.target[2].value
+      answer.innerHTML = calculator(val_1, val_2, operation)
+    }
+
+    const calculator = (valOne, valTwo, op) => {
+      let total
+      if (op === 'addition') {
+        total = valOne + valTwo
+      } else if (op === 'subtraction') {
+        total = valOne - valTwo
+      } else if (op === 'multiply') {
+        total = valOne * valTwo
+      } else if (op === 'division') {
+        total = valOne / valTwo
+      }
+      return total
+    }
+  </script>
+</body>
+</html>
