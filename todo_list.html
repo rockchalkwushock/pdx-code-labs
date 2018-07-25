@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Todo List</title>
+  <style>
+    body {
+      background-color: dodgerblue;
+      color: white;
+      min-height: 100vh;
+    }
+    #form {
+      background-color: slateblue;
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    #list {
+      background-color: slateblue;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    #todos {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: 1fr;
+    }
+    #todos li {
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <label for="todo">Enter a todo:</label>
+    <input name="todo" placeholder="Go to the store" type="text">
+    <button type="submit">Add Todo</button>
+  </form>
+  <div id="list">
+    <ul id="todos"></ul>
+  </div>
+  <script>
+  const form = document.getElementById('form')
+  const todos = document.getElementById('todos')
+
+
+
+  form.onsubmit = function (event) {
+    event.preventDefault()
+    if (event.target[0].value.length === 0) {
+      return
+    }
+    const li = document.createElement('li')
+    const todo = document.createElement('p')
+    const complete = document.createElement('input')
+    const remove = document.createElement('button')
+    complete.type = 'checkbox'
+    complete.id = 'completed'
+    remove.innerText = 'DELETE'
+    todo.innerText = event.target[0].value
+    li.appendChild(complete)
+    li.appendChild(todo)
+    li.appendChild(remove)
+    todos.appendChild(li)
+    complete.onclick = function (event) {
+      if (event.target.checked) {
+        todo.style.textDecoration = 'line-through solid'
+      } else {
+        todo.style.textDecoration = 'none'
+      }
+    }
+    remove.onclick = function (event) {
+      const li = event.target.parentNode
+      const ul = document.getElementById('todos')
+      ul.removeChild(li)
+    }
+  }
+  </script>
+</body>
+</html>
