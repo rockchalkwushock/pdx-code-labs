@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Random Redirect</title>
+  <style>
+    #all-content {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    #display {
+      color: slategray;
+      font-size: 3rem;
+    }
+    #timer {
+      color: steelblue;
+      font-size: 6rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="all-content">
+    <div id="display"></div>
+    <div id="timer"></div>
+  </div>
+  <script>
+    const locations = [
+      'http://espn.com',
+      'https://cnn.com',
+      'https://github.com',
+      'https://msnbc.com'
+    ]
+    const pickAtRandom = locations => {
+      const randomInex = Math.floor(Math.random() * (locations.length - 0)) + 0
+      return locations[randomInex]
+    }
+    const timer = (time, location) => {
+      countdownTimer = setInterval(() => {
+        time--
+        document.getElementById('display').textContent = `You will be redirected to ${location} in 5 seconds.`
+        document.getElementById('timer').textContent = time
+        if (time <= 0) {
+          window.location.href = location
+          clearInterval(countdownTimer)
+        }
+      }, 1000)
+    }
+
+    timer(5, pickAtRandom(locations))
+  </script>
+</body>
+</html>
