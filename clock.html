@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +15,12 @@
       height: 100vh;
       justify-content: center;
     }
+
     .controls {
       display: flex;
       justify-content: space-around;
     }
+
     #watch {
       align-items: center;
       border: 2px solid darkslategray;
@@ -31,6 +34,17 @@
       text-align: center;
       width: 80%
     }
+
+    #laps {
+      color: darkslategray;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2rem;
+      height: 400px;
+      overflow: scroll;
+      text-align: center;
+      width: 80%;
+    }
+
     button {
       background-color: darkslategray;
       border: none;
@@ -44,28 +58,28 @@
     }
   </style>
 </head>
+
 <body>
   <div class="app">
-      <div id="watch"></div>
-      <div class="controls">
-          <button id="start">Start</button>
-          <button id="lap">Lap</button>
-          <button id="reset">Reset</button>
-      </div>
+    <div id="watch"></div>
+    <div class="controls">
+      <button id="start">Start</button>
+      <button id="lap">Lap</button>
+      <button id="reset">Reset</button>
+    </div>
+    <div id="laps"></div>
   </div>
   <script>
     const startBtn = document.getElementById('start')
     const lapBtn = document.getElementById('lap')
     const resetBtn = document.getElementById('reset')
     const watch = document.getElementById('watch')
+    const laps = document.getElementById('laps')
     let RUNNING = false
     let time = 0
     let timer
 
     watch.innerHTML = '00:00:00'
-
-
-
 
     startBtn.addEventListener('click', event => {
       if (!RUNNING) {
@@ -74,12 +88,16 @@
         startBtn.innerHTML = 'Pause'
       } else {
         RUNNING = false
+        stopwatch()
         startBtn.innerHTML = 'Start'
       }
     })
 
     lapBtn.addEventListener('click', event => {
-
+      const currentTime = watch.innerHTML
+      const lap = document.createElement('p')
+      lap.innerHTML = `${currentTime}`
+      laps.appendChild(lap)
     })
 
     resetBtn.addEventListener('click', event => {
@@ -87,20 +105,25 @@
       startBtn.innerHTML = 'Start'
       clearInterval(timer)
       watch.innerHTML = '00:00:00'
+      laps.innerHTML = ''
     })
 
     const stopwatch = () => {
       if (RUNNING) {
         timer = setInterval(() => {
           time++
-          const minutes = Math.floor(time / (60 * 1000))
-          const seconds = Math.floor(time / 60)
+          const minutes = Math.floor(time / (60 * 60))
+          const seconds = Math.floor(time / 60) % 60
           const milliseconds = time % 100
 
-          watch.innerHTML = `${minutes}:${seconds}:${milliseconds < 10 ? '0' + milliseconds : milliseconds}`
+          watch.innerHTML =
+            `${minutes}:${seconds < 10 ? '0' + seconds : seconds}:${milliseconds < 10 ? '0' + milliseconds : milliseconds}`
         }, 10)
+      } else {
+        clearInterval(timer)
       }
     }
   </script>
 </body>
+
 </html>
