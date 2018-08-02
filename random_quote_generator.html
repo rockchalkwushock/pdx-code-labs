@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Random Quote Generator</title>
+  <style>
+    body {
+      align-items: center;
+      background-color: darkseagreen;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    #quote {
+      background-color: papayawhip;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+      font-size: 1.75rem;
+      padding: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="quote"></div>
+  <script>
+    let author
+    let body
+    fetch('https://favqs.com/api/qotd').then(response => {
+      response.json().then(res => {
+        author = res.quote.author
+        body = res.quote.body
+        const quote = document.getElementById('quote')
+        const a = document.createElement('p')
+        const b = document.createElement('p')
+        a.innerHTML = author
+        b.innerHTML = body
+        quote.appendChild(b)
+        quote.appendChild(a)
+      })
+    })
+  </script>
+</body>
+
+</html>
