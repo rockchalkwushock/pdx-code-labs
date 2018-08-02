@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS Weather Station</title>
+  <style>
+    body {
+      align-items: center;
+      background-color: dodgerblue;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.25rem;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    #station {
+      align-items: center;
+      background-color: whitesmoke;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+      justify-content: center;
+      padding: 2rem;
+      width: 400px
+    }
+  </style>
+</head>
+
+<body>
+  <div id="station">
+    <h2 id="name"></h2>
+    <h4 id="temp"></h4>
+    <h4 id="hum"></h4>
+    <h4 id="max"></h4>
+    <h4 id="min"></h4>
+    <h4 id="wind"></h4>
+  </div>
+  <script>
+    let name = document.getElementById('name')
+    let temp = document.getElementById('temp')
+    let hum = document.getElementById('hum')
+    let max = document.getElementById('max')
+    let min = document.getElementById('min')
+    let wind = document.getElementById('wind')
+    const showPosition = position => {
+      const appid = 'a8f99f131280a03b5f5f76c9644fc956'
+      const lat = position.coords.latitude
+      const long = position.coords.longitude
+      fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=imperial&appid=${appid}`).then(
+        response => {
+          response.json().then(res => {
+            name.innerHTML = res.name
+            temp.innerHTML = `Current Temperature: ${res.main.temp} F`
+            hum.innerHTML = `Current humidity: ${res.main.humidity} %`
+            max.innerHTML = `Max Temperature: ${res.main.temp_max} F`
+            min.innerHTML = `Min Temperature: ${res.main.temp_min} F`
+            wind.innerHTML = `Current wind speed: ${res.wind.speed} mph`
+          })
+        })
+    }
+    navigator.geolocation.getCurrentPosition(showPosition)
+  </script>
+</body>
+
+</html>
