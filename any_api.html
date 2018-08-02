@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Any API</title>
+  <style>
+    body {
+      align-items: center;
+      background-color: peachpuff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    ul {
+      list-style: none;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="users"></ul>
+  <script>
+    const users = document.getElementById('users')
+    fetch('https://reqres.in/api/users').then(response => {
+      response.json().then(({
+        data
+      }) => {
+        data.map(user => {
+          const li = document.createElement('li')
+          const p = document.createElement('p')
+          const img = document.createElement('img')
+          p.innerHTML = `${user.first_name} ${user.last_name}`
+          img.src = user.avatar
+          li.appendChild(p)
+          li.appendChild(img)
+          users.appendChild(li)
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>
