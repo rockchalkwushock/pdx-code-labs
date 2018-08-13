@@ -1,0 +1,56 @@
+body {
+  background-color: steelblue;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+form {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(1, 1fr);
+  margin: 0 auto;
+  width: 40%;
+}
+
+form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid lime;
+  color: lime;
+  font-size: 1.7rem;
+  outline: none;
+}
+
+form button {
+  background-color: lime;
+  border: none;
+  box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5);
+  color: steelblue;
+  font-size: 1.7rem;
+  outline: none;
+  padding: 0.5rem;
+}
+
+table {
+  border: 5px solid lime;
+  margin: 2rem auto;
+  padding: 0.5rem;
+}
+
+table tr {
+  color: lime;
+  display: grid;
+  font-size: 1.2rem;
+  grid-gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+a {
+  color: lime;
+}
+
+a:visited {
+  color: lime;
+}

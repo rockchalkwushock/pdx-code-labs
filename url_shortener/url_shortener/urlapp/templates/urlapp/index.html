@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Django Url Shortener</title>
+  {% load static %}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'urlapp/style.css' %}" />
+</head>
+
+<body>
+  <div>
+    <form action="{% url 'urls:save' %}" method="POST">
+      {% csrf_token %}
+      <input name="url_input" type="text" placeholder="Enter a url to shorten">
+      <button type="submit">Shorten</button>
+    </form>
+    <table>
+      <tr>
+        <th>Code</th>
+        <th>Url</th>
+        <th>Created</th>
+      </tr>
+      {% for url in urls %}
+      <tr>
+        <th>
+          <a href="{% url 'urls:redirect' code=url.code %}">{{ url.code }}</a>
+        </th>
+        <th>{{ url.url }}</th>
+        <th>{{ url.created_date }}</th>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+
+</html>
