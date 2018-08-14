@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Django Library</title>
+</head>
+
+<body>
+  <div>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Published</th>
+      </tr>
+      {% for book in books %}
+      <tr>
+        <th>{{ book.title }}</th>
+        <th>{{ book.author }}</th>
+        <th>
+          {% if book.checked_out %}
+          <form action="{% url 'library:checked' title=book.title %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Check In</button>
+          </form>
+          {% else %}
+          <form action="{% url 'library:checked' title=book.title %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Check Out</button>
+          </form>
+          {% endif %}
+        </th>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+
+</html>
