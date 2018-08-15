@@ -5,5 +5,5 @@ from . import views
 app_name = 'library'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('checked/<title>', views.checked, name='checked')
+    path('check_out/<title>', views.check_out, name='check_out')
 ]

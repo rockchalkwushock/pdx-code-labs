@@ -11,30 +11,47 @@
 <body>
   <div>
     <table>
+      <h1>Available books</h1>
       <tr>
         <th>Title</th>
         <th>Author</th>
-        <th>Published</th>
+        <th></th>
       </tr>
       {% for book in books %}
       <tr>
         <th>{{ book.title }}</th>
         <th>{{ book.author }}</th>
         <th>
-          {% if book.checked_out %}
-          <form action="{% url 'library:checked' title=book.title %}" method="POST">
-            {% csrf_token %}
-            <button type="submit">Check In</button>
-          </form>
-          {% else %}
-          <form action="{% url 'library:checked' title=book.title %}" method="POST">
+          <form action="{% url 'library:check_out' title=book.title %}" method="POST">
             {% csrf_token %}
             <button type="submit">Check Out</button>
           </form>
-          {% endif %}
         </th>
       </tr>
       {% endfor %}
+    </table>
+    <table>
+      <h1>Your books</h1>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+      <tr>
+        {% if my_books.checked_out %}
+        <th>{{ my_books.book }}</th>
+        <th>{{ my_books.timestamp }}</th>
+        <th>
+          <form action="{% url 'library:check_out' title=my_books.book %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Check In</button>
+          </form>
+        </th>
+        {% else %}
+        <th></th>
+        <th></th>
+        {% endif %}
+      </tr>
     </table>
   </div>
 </body>
