@@ -1,18 +1,16 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <h1>{{post.title}}</h1>
-  <h4>{{post.timestamp}}</h4>
-  <h6>{{post.user}}</h6>
-  <p>{{post.body}}</p>
-  <ul>
-    <form action="{% url 'blog:detail' title=post.title %}" method="POST">
+  <h1 class="title">{{post.title}}</h1>
+  <h4 class="meta">{{post.user}} - {{post.timestamp}}</h4>
+  <p class="body">{{post.body}}</p>
+  <ul class="comments">
+    <form class="comments-form" action="{% url 'blog:detail' title=post.title %}" method="POST">
       {% csrf_token %} {{ form }}
       <button type="submit">Post</button>
     </form>
     {% for comment in comments %}
     <li>
-      <p>{{comment.user}}</p>
-      <p>{{comment.timestamp}}</p>
+      <p>{{comment.user}} - {{comment.timestamp}}</p>
       <p>{{comment.body}}</p>
     </li>
     {% endfor %}

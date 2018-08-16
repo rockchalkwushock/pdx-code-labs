@@ -6,17 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Django Blog</title>
+  {% load static %}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'blogapp/styles.css' %}" />
 </head>
 
 <body>
   <header>
     <nav>
-      <ul>
+      <ul class="links">
         {% if user.is_authenticated %}
+        <li>
+          <a class="link" href="create">New Post</a>
+        </li>
         <li>
           <form action="{% url 'blog:logout' %}" method="POST">
             {% csrf_token %}
-            <button type="submit">Logout</button>
+            <button class='link' type="submit">Logout</button>
           </form>
         </li>
         {% endif %}

@@ -2,12 +2,11 @@
 <div>
   <ul>
     {% for post in posts %}
-    <li>
+    <li class="post">
       <h2>
         <a href="{% url 'blog:detail' title=post.title %}">{{post.title}}</a>
       </h2>
-      <p>{{post.timestamp}}</p>
-      <p>{{post.user}}</p>
+      <p>{{post.user}} - {{post.timestamp}}</p>
     </li>
     {% endfor %}
   </ul>
