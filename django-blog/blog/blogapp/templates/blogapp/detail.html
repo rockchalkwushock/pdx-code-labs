@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<div>
+  <h1>{{post.title}}</h1>
+  <h4>{{post.timestamp}}</h4>
+  <h6>{{post.user}}</h6>
+  <p>{{post.body}}</p>
+  <ul>
+    {% for comment in comments %}
+    <li>
+      <p>{{comment.user}}</p>
+      <p>{{comment.timestamp}}</p>
+      <p>{{comment.body}}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,6 +1,15 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <h1>Blog Content Here</h1>
-  {% if user.is_authenticated %} {{ user.username }} {% endif %}
+  <ul>
+    {% for post in posts %}
+    <li>
+      <h2>
+        <a href="{% url 'blog:detail' title=post.title %}">{{post.title}}</a>
+      </h2>
+      <p>{{post.timestamp}}</p>
+      <p>{{post.user}}</p>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}

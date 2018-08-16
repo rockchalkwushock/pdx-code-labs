@@ -6,11 +6,23 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+from .models import Post, Comment
 
 
 @login_required
 def index(request):
-    return render(request, 'blogapp/index.html')
+    context = {'posts': Post.objects.all()}
+    return render(request, 'blogapp/index.html', context)
+
+
+def detail(request, title):
+    post = Post.objects.get(title=title)
+    comments = Comment.objects.filter(post=post).order_by('-timestamp')
+    print('----------------')
+    print(comments)
+    print('----------------')
+    context = {'post': post, 'comments': comments}
+    return render(request, 'blogapp/detail.html', context)
 
 
 def register(request):
