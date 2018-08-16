@@ -5,6 +5,10 @@
   <h6>{{post.user}}</h6>
   <p>{{post.body}}</p>
   <ul>
+    <form action="{% url 'blog:detail' title=post.title %}" method="POST">
+      {% csrf_token %} {{ form }}
+      <button type="submit">Post</button>
+    </form>
     {% for comment in comments %}
     <li>
       <p>{{comment.user}}</p>

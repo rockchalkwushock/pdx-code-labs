@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -17,9 +17,19 @@ def index(request):
 
 def detail(request, title):
     post = Post.objects.get(title=title)
-    comments = Comment.objects.filter(post=post).order_by('-timestamp')
-    context = {'post': post, 'comments': comments}
-    return render(request, 'blogapp/detail.html', context)
+    if request.method == 'POST':
+        form = forms.CreateComment(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.post = post
+            instance.user = request.user
+            instance.save()
+            return redirect('blog:detail', title)
+    else:
+        comments = Comment.objects.filter(post=post).order_by('-timestamp')
+        form = forms.CreateComment()
+        context = {'post': post, 'comments': comments, 'form': form}
+        return render(request, 'blogapp/detail.html', context)
 
 
 @login_required
