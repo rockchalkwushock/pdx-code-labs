@@ -126,3 +126,5 @@ STATICFILES_DIRS = (
         'static',
     ),
 )
+LOGIN_REDIRECT_URL = '/blog/'
+LOGOUT_REDIRECT_URL = '/blog/login'
