@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from .models import Post, Comment
+from . import forms
 
 
-@login_required
 def index(request):
     context = {'posts': Post.objects.all()}
     return render(request, 'blogapp/index.html', context)
@@ -18,11 +18,22 @@ def index(request):
 def detail(request, title):
     post = Post.objects.get(title=title)
     comments = Comment.objects.filter(post=post).order_by('-timestamp')
-    print('----------------')
-    print(comments)
-    print('----------------')
     context = {'post': post, 'comments': comments}
     return render(request, 'blogapp/detail.html', context)
+
+
+@login_required
+def create(request):
+    if request.method == 'POST':
+        form = forms.CreatePost(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return HttpResponseRedirect(reverse('blog:index'))
+    else:
+        form = forms.CreatePost()
+        return render(request, 'blogapp/create.html', {'form': form})
 
 
 def register(request):
