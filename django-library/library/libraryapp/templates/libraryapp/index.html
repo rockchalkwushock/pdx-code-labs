@@ -37,21 +37,18 @@
         <th>Date</th>
         <th></th>
       </tr>
+      {% for book in my_books %}
       <tr>
-        {% if my_books.checked_out %}
-        <th>{{ my_books.book }}</th>
-        <th>{{ my_books.timestamp }}</th>
+        <th>{{book.book}}</th>
+        <th>{{book.timestamp}}</th>
         <th>
-          <form action="{% url 'library:check_out' title=my_books.book %}" method="POST">
+          <form action="{% url 'library:check_out' title=book.book %}" method="POST">
             {% csrf_token %}
             <button type="submit">Check In</button>
           </form>
         </th>
-        {% else %}
-        <th></th>
-        <th></th>
-        {% endif %}
       </tr>
+      {% endfor %}
     </table>
   </div>
 </body>

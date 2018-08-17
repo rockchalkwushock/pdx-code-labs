@@ -11,9 +11,8 @@ from .models import Book, Card
 @login_required
 def index(request):
     context = {
-        # 'books': Book.objects.all().order_by('author')[::-1],
         'books': Book.objects.filter(checked_out=False).order_by('author')[::-1],
-        'my_books': Card.objects.get(user=request.user)
+        'my_books': Card.objects.filter(user=request.user)
     }
     return render(request, 'libraryapp/index.html', context)
 
@@ -21,12 +20,16 @@ def index(request):
 @login_required
 def check_out(request, title):
     book = Book.objects.get(title=title)
-    card = Card.objects.get(user=request.user)
+    card = Card.objects.filter(book=book).exists()
+    if not card:
+        card = Card(book=book, user=request.user)
+    else:
+        card = Card.objects.get(book=book)
     if book.checked_out:
         book.checked_out = False
         card.checked_out = False
         book.save()
-        card.save()
+        card.delete()
     else:
         book.checked_out = True
         card.checked_out = True
